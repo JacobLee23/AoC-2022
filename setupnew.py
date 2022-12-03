@@ -12,7 +12,7 @@ def new(day: int, txt_path: str) -> pathlib.Path:
     with open(path, "w", encoding="utf-8") as file:
         file.write(
             f"""# {YEAR} Day {day}
-            
+
 
 TXT_PATH = "{txt_path}"
 
@@ -34,7 +34,7 @@ def part2(a=DATA):
 if __name__ == "__main__":
     print(part1())
     print(part2())
-            """
+"""
         )
 
     return path
