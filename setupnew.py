@@ -21,14 +21,12 @@ with open(TXT_PATH, "r", encoding="utf-8") as file:
     DATA = file.read()
 
 
-def part1(a=DATA):
+def part1(arr=DATA):
     pass
 
 
-
-def part2(a=DATA):
+def part2(arr=DATA):
     pass
-
 
 
 if __name__ == "__main__":
