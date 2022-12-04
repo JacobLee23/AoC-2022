@@ -16,13 +16,7 @@ def part1(arr=DATA):
         "C": {"X": 6, "Y": 0, "Z": 3}
     }
 
-    score = 0
-
-    for a, b in arr:
-        score += choices[b]
-        score += outcomes[a][b]
-
-    return score
+    return sum(choices[b] + outcomes[a][b] for a, b in arr)
 
 
 def part2(arr=DATA):
@@ -33,13 +27,7 @@ def part2(arr=DATA):
         "C": {"X": 2, "Y": 3, "Z": 1}
     }
 
-    score = 0
-
-    for a, b in arr:
-        score += choices[b]
-        score += outcomes[a][b]
-
-    return score
+    return sum(choices[b] + outcomes[a][b] for a, b in arr)
 
 
 if __name__ == "__main__":
