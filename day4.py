@@ -1,5 +1,7 @@
 # 2022 Day 4
 
+import functools
+
 
 TXT_PATH = "day4.txt"
 
@@ -12,29 +14,17 @@ with open(TXT_PATH, "r", encoding="utf-8") as file:
 
 
 def part1(arr=DATA):
-    count = 0
-
-    for pair in arr:
-        (a, b), (c, d) = pair
-        m, n = range(a, b + 1), range(c, d + 1)
-
-        if all(x in n for x in m) or all(x in m for x in n):
-            count += 1
-
-    return count
+    return sum(
+        int((c <= a <= b <= d) or (a <= c <= d <= b))
+        for (a, b), (c, d) in arr
+    )
 
 
 def part2(arr=DATA):
-    count = 0
-
-    for pair in arr:
-        (a, b), (c, d) = pair
-        m, n = range(a, b + 1), range(c, d + 1)
-
-        if any(x in n for x in m) or any(x in m for x in n):
-            count += 1
-
-    return count
+    return sum(
+        int((c <= a <= d or c <= b <= d) or (a <= c <= b or a <= d <= b))
+        for (a, b), (c, d) in arr
+    )
 
 
 if __name__ == "__main__":
