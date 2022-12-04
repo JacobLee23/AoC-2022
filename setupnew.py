@@ -18,7 +18,7 @@ TXT_PATH = "{txt_path}"
 
 
 with open(TXT_PATH, "r", encoding="utf-8") as file:
-    DATA = file.read()
+    DATA = file.readlines()
 
 
 def part1(arr=DATA):
