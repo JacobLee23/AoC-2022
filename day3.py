@@ -15,11 +15,12 @@ def part1(arr=DATA):
     items = []
 
     for line in arr:
-        sets = map(set, [line[:(len(line) // 2)], line[(len(line) // 2):]])
-
-        intersect = functools.reduce(lambda x, y: x.intersection(y), sets)
-
-        items.extend(intersect)
+        items.extend(
+            functools.reduce(
+                lambda x, y: x.intersection(y),
+                map(set, [line[:(len(line) // 2)], line[(len(line) // 2):]])
+            )
+        )
 
     return sum(string.ascii_letters.index(x) + 1 for x in items)
 
@@ -28,11 +29,12 @@ def part2(arr=DATA):
     items = []
 
     for i in range(0, len(arr), 3):
-        sets = map(set, arr[i:(i + 3)])
-
-        intersect = functools.reduce(lambda x, y: x.intersection(y), sets)
-
-        items.extend(intersect)
+        items.extend(
+            functools.reduce(
+                lambda x, y: x.intersection(y),
+                map(set, arr[i:(i + 3)])
+            )
+        )
 
     return sum(string.ascii_letters.index(x) + 1 for x in items)
 
