@@ -1,14 +1,29 @@
 # 2022 Day 2
 
-
-TXT_PATH = "day2.txt"
-
-
-with open(TXT_PATH, "r", encoding="utf-8") as file:
-    DATA = [x.split() for x in file.readlines()]
+import typing
 
 
-def part1(arr=DATA):
+# Environment constants
+DATA_PATH = {
+    "puzzle": "day2.txt",
+    "test": "day2-test.txt"
+}
+DATA = {
+    "puzzle": None,
+    "test": None
+}
+
+for key, value in DATA_PATH.items():
+    with open(value, "r", encoding="utf-8") as file:
+        data = [x.split() for x in file.readlines()]
+    DATA[key] = data
+
+
+# Puzzle constants
+
+
+# Part 1 solution
+def part1(arr: typing.List[str] = DATA) -> int:
     choices = {"X": 1, "Y": 2, "Z": 3}
     outcomes = {
         "A": {"X": 3, "Y": 6, "Z": 0},
@@ -19,7 +34,8 @@ def part1(arr=DATA):
     return sum(choices[b] + outcomes[a][b] for a, b in arr)
 
 
-def part2(arr=DATA):
+# Part 2 solution
+def part2(arr: typing.List[str] = DATA) -> int:
     choices = {"X": 0, "Y": 3, "Z": 6}
     outcomes = {
         "A": {"X": 3, "Y": 1, "Z": 2},
@@ -31,5 +47,9 @@ def part2(arr=DATA):
 
 
 if __name__ == "__main__":
-    print(part1())
-    print(part2())
+    print("Test data:")
+    print(f"\tPart 1:\t{part1(DATA['test'])}")
+    print(f"\tPart 2:\t{part2(DATA['test'])}")
+    print("Puzzle data:")
+    print(f"\tPart 1:\t{part1(DATA['puzzle'])}")
+    print(f"\tPart 2:\t{part2(DATA['puzzle'])}")
