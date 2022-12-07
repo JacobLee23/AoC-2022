@@ -2,16 +2,30 @@
 
 import functools
 import string
+import typing
 
 
-TXT_PATH = "day3.txt"
+# Environment constants
+DATA_PATH = {
+    "puzzle": "day3.txt",
+    "test": "day3-test.txt"
+}
+DATA = {
+    "puzzle": None,
+    "test": None
+}
+
+for key, value in DATA_PATH.items():
+    with open(value, "r", encoding="utf-8") as file:
+        data = [x.strip() for x in file.readlines()]
+    DATA[key] = data
 
 
-with open(TXT_PATH, "r", encoding="utf-8") as file:
-    DATA = [x.strip() for x in file.readlines()]
+# Puzzle constants
 
 
-def part1(arr=DATA):
+# Part 1 solution
+def part1(arr: typing.List[str] = DATA) -> typing.Any:
     items = []
 
     for line in arr:
@@ -25,7 +39,8 @@ def part1(arr=DATA):
     return sum(string.ascii_letters.index(x) + 1 for x in items)
 
 
-def part2(arr=DATA):
+# Part 2 solution
+def part2(arr: typing.List[str] = DATA) -> typing.Any:
     items = []
 
     for i in range(0, len(arr), 3):
@@ -40,5 +55,9 @@ def part2(arr=DATA):
 
 
 if __name__ == "__main__":
-    print(part1())
-    print(part2())
+    print("Test data:")
+    print(f"\tPart 1:\t{part1(DATA['test'])}")
+    print(f"\tPart 2:\t{part2(DATA['test'])}")
+    print("Puzzle data:")
+    print(f"\tPart 1:\t{part1(DATA['puzzle'])}")
+    print(f"\tPart 2:\t{part2(DATA['puzzle'])}")
