@@ -23,7 +23,7 @@ DATA = {{
     "test": None
 }}
 
-for key, value in DATA_PATH.ITEMS():
+for key, value in DATA_PATH.items():
     with open(value, "r", encoding="utf-8") as file:
         data = file.readlines()
     DATA[key] = data
