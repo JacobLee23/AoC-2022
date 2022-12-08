@@ -6,8 +6,8 @@ import typing
 
 # Environment constants
 DATA_PATH = {
-    "puzzle": "day6.txt",
-    "test": "day6-test.txt"
+    "puzzle": "puzzle-data.txt",
+    "test": "test-data.txt"
 }
 DATA = {
     "puzzle": None,
@@ -18,6 +18,9 @@ for key, value in DATA_PATH.items():
     with open(value, "r", encoding="utf-8") as file:
         data = list(file.read())
     DATA[key] = data
+
+
+# Puzzle constants
 
 
 # Puzzle constants
@@ -43,10 +46,14 @@ def part2(arr: typing.List[str] = DATA) -> int:
     return search(arr, 14)
 
 
-if __name__ == "__main__":
+def main():
     print("Test data:")
     print(f"\tPart 1:\t{part1(DATA['test'])}")
     print(f"\tPart 2:\t{part2(DATA['test'])}")
     print("Puzzle data:")
     print(f"\tPart 1:\t{part1(DATA['puzzle'])}")
     print(f"\tPart 2:\t{part2(DATA['puzzle'])}")
+
+
+if __name__ == "__main__":
+    main()
