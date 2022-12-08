@@ -1,78 +1,77 @@
+# Usage: $ setupnew.py <day> ...
+
+from dataclasses import dataclass
+import os
 import pathlib
 import sys
+import typing
 
 
 YEAR = 2022
 
 
-def py_template(day: int, py_path: str, data_path: str, test_path: str) -> None:
-    with open(py_path, "w", encoding="utf-8") as file:
+TEMPLATE_PATH = pathlib.Path("py-template.txt")
+
+with open(TEMPLATE_PATH, "r", encoding="utf-8") as file:
+    TEMPLATE = file.read()
+
+
+@dataclass
+class Day:
+    day: int
+
+    def __repr__(self) -> str:
+        return f"Day(day={self.day}, dir_path='{self.dir_path}', file_paths='{self.file_paths}')"
+
+    @property
+    def dir_path(self) -> pathlib.Path:
+        return pathlib.Path(f"Day {self.day}")
+
+    @property
+    def py_path(self) -> pathlib.Path:
+        return self.dir_path / "sol.py"
+
+    @property
+    def puzzle_data_path(self) -> pathlib.Path:
+        return self.dir_path / "puzzle-data.txt"
+
+    @property
+    def test_data_path(self) -> pathlib.Path:
+        return self.dir_path / "test-data.txt"
+
+    @property
+    def file_paths(self) -> typing.List[pathlib.Path]:
+        return [self.py_path, self.puzzle_data_path, self.test_data_path]
+
+
+def setup_day(n: int) -> Day:
+    day = Day(n)
+
+    try:
+        os.mkdir(day.dir_path)
+    except OSError:
+        return
+
+    for path in day.file_paths:
+        open(path, "w", encoding="utf-8").close()
+
+    with open(day.py_path, "w", encoding="utf-8") as file:
         file.write(
-            f"""# {YEAR} Day {day}
-
-import typing
-
-
-# Environment constants
-DATA_PATH = {{
-    "puzzle": "{data_path}",
-    "test": "{test_path}"
-}}
-DATA = {{
-    "puzzle": None,
-    "test": None
-}}
-
-for key, value in DATA_PATH.items():
-    with open(value, "r", encoding="utf-8") as file:
-        data = file.readlines()
-    DATA[key] = data
-
-
-# Puzzle constants
-
-
-# Part 1 solution
-def part1(arr: typing.List[str] = DATA) -> typing.Any:
-    pass
-
-
-# Part 2 solution
-def part2(arr: typing.List[str] = DATA) -> typing.Any:
-    pass
-
-
-if __name__ == "__main__":
-    print("Test data:")
-    print(f"\\tPart 1:\\t{{part1(DATA['test'])}}")
-    print(f"\\tPart 2:\\t{{part2(DATA['test'])}}")
-    print("Puzzle data:")
-    print(f"\\tPart 1:\\t{{part1(DATA['puzzle'])}}")
-    print(f"\\tPart 2:\\t{{part2(DATA['puzzle'])}}")
-"""
+            TEMPLATE.format(
+                year=YEAR,
+                day=day.day,
+                puzzle_data_path=day.puzzle_data_path.relative_to(day.dir_path).as_posix(),
+                test_data_path=day.test_data_path.relative_to(day.dir_path).as_posix()
+            )
         )
+
+    return day
 
 
 def main(*args):
-    day = int(args[0])
-
-    # Construct file paths
-    py_path = pathlib.Path(f"day{day}.py")
-    data_path = pathlib.Path(f"day{day}.txt")
-    test_path = pathlib.Path(f"day{day}-test.txt")
-    paths = [data_path, test_path, py_path]
-
-    # Verify that both file do not already exists
-    for path in paths:
-        if path.exists():
-            continue
-        
-        open(path, "w", encoding="utf-8").close()
-
-        if path == py_path:
-            py_template(day, py_path, data_path, test_path)
-
-    print(day, py_path, data_path, test_path)
+    for n in args:
+        day = setup_day(int(n))
+        print(day)
 
 
 if __name__ == "__main__":
