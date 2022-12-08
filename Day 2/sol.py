@@ -5,8 +5,8 @@ import typing
 
 # Environment constants
 DATA_PATH = {
-    "puzzle": "day2.txt",
-    "test": "day2-test.txt"
+    "puzzle": "puzzle-data.txt",
+    "test": "test-data.txt"
 }
 DATA = {
     "puzzle": None,
@@ -46,10 +46,14 @@ def part2(arr: typing.List[str] = DATA) -> int:
     return sum(choices[b] + outcomes[a][b] for a, b in arr)
 
 
-if __name__ == "__main__":
+def main():
     print("Test data:")
     print(f"\tPart 1:\t{part1(DATA['test'])}")
     print(f"\tPart 2:\t{part2(DATA['test'])}")
     print("Puzzle data:")
     print(f"\tPart 1:\t{part1(DATA['puzzle'])}")
     print(f"\tPart 2:\t{part2(DATA['puzzle'])}")
+
+
+if __name__ == "__main__":
+    main()
