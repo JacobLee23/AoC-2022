@@ -1,16 +1,29 @@
 # 2022 Day 6
 
 import collections
+import typing
 
 
-TXT_PATH = "day6.txt"
+# Environment constants
+DATA_PATH = {
+    "puzzle": "day6.txt",
+    "test": "day6-test.txt"
+}
+DATA = {
+    "puzzle": None,
+    "test": None
+}
+
+for key, value in DATA_PATH.items():
+    with open(value, "r", encoding="utf-8") as file:
+        data = list(file.read())
+    DATA[key] = data
 
 
-with open(TXT_PATH, "r", encoding="utf-8") as file:
-    DATA = list(file.read())
+# Puzzle constants
 
 
-def search(arr: list[str], n: int) -> int:
+def search(arr: typing.List[str], n: int) -> int:
     q = collections.deque(arr[:n])
 
     for i, x in enumerate(arr[n:], n):
@@ -21,14 +34,19 @@ def search(arr: list[str], n: int) -> int:
         q.append(x)
 
 
-def part1(arr=DATA):
+# Part 1 solution
+def part1(arr: typing.List[str] = DATA) -> int:
     return search(arr, 4)
 
-
-def part2(arr=DATA):
+# Part 2 solution
+def part2(arr: typing.List[str] = DATA) -> int:
     return search(arr, 14)
 
 
 if __name__ == "__main__":
-    print(part1())
-    print(part2())
+    print("Test data:")
+    print(f"\tPart 1:\t{part1(DATA['test'])}")
+    print(f"\tPart 2:\t{part2(DATA['test'])}")
+    print("Puzzle data:")
+    print(f"\tPart 1:\t{part1(DATA['puzzle'])}")
+    print(f"\tPart 2:\t{part2(DATA['puzzle'])}")
