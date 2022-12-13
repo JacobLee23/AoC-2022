@@ -61,8 +61,8 @@ def compare(left: typing.Union[typing.List, int], right: typing.Union[typing.Lis
 
 # Part 1 solution
 def part1(arr: typing.List[str]) -> int:
-    packets = [list(map(json.loads, x.split("\n"))) for x in arr]
-    return sum(i for i, x in enumerate(packets) if compare(*x) == 1)
+    packets = (map(json.loads, x.split("\n")) for x in arr)
+    return sum(i for i, x in enumerate(packets, 1) if compare(*x) == 1)
 
 
 # Part 2 solution
